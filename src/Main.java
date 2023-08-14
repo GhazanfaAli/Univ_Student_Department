@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 class University {
-    private String name;
+    private String u_name;
     private ArrayList < Student > students = new ArrayList < > ();
     private ArrayList < Department > departments = new ArrayList < > ();
 
-    University(String[] sname, String[] dname) {
+    University(String[] sname, String[] dname, String u_name) {
 
         for (String name: sname) {
             students.add(new Student(name));
@@ -13,6 +13,10 @@ class University {
         for (String name: dname) {
             departments.add(new Department(name));
         }
+        this.u_name = u_name;
+    }
+    String getName(){
+        return u_name;
     }
 
     Department getDepartment(String dkey) {
@@ -100,7 +104,7 @@ class Main {
         String[] studentNames = {
                 "Ali",
                 "Ajaz",
-                "Akram"
+                "Akram",
         };
         String[] departmentNames = {
                 "Computer Science",
@@ -108,11 +112,15 @@ class Main {
                 "Physics"
         };
 
-        University university = new University(studentNames, departmentNames);
+        University university = new University(studentNames, departmentNames, "Mehran.\n");
 
+        System.out.println("\nUniversity Name : "+university.getName());
+        System.out.println("List of Students and Departments is given.\n");
         Department csDepartment = university.getDepartment("Computer Science");
-        Department mathDepartment = university.getDepartment("Mathemkaatics");
+        Department mathDepartment = university.getDepartment("Mathematics");
         Department physicsDepartment = university.getDepartment("Physics");
+
+
 
         Student alice = university.getStudent("Ali");
         Student bob = university.getStudent("Ajaz");
