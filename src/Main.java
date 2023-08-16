@@ -15,7 +15,8 @@ class University {
         }
         this.u_name = u_name;
     }
-    String getName(){
+
+    String getName() {
         return u_name;
     }
 
@@ -49,6 +50,20 @@ class University {
             System.out.println("---------------------------------");
         }
     }
+    void print_student_name(String d_name) {
+        Department department = getDepartment(d_name);
+        if (department != null) {
+            System.out.println("Students in Department " + d_name + ":");
+            for (Student student : department.getStudents()) {
+                System.out.println(student.getSname());
+            }
+        } else {
+            System.out.println("Department " + d_name + " not found.");
+        }
+    }
+
+
+
 }
 
 class Student {
@@ -76,7 +91,9 @@ class Student {
 class Department {
     private String dname;
     private ArrayList < Student > std = new ArrayList < > ();
-
+    public ArrayList<Student> getStudents() {
+        return std;
+    }
     Department(String dname) {
         this.dname = dname;
     }
@@ -105,6 +122,7 @@ class Main {
                 "Ali",
                 "Ajaz",
                 "Akram",
+                "Akeel",
         };
         String[] departmentNames = {
                 "Computer Science",
@@ -114,24 +132,19 @@ class Main {
 
         University university = new University(studentNames, departmentNames, "Mehran.\n");
 
-        System.out.println("\nUniversity Name : "+university.getName());
+        System.out.println("\nUniversity Name : " + university.getName());
         System.out.println("List of Students and Departments is given.\n");
-        Department csDepartment = university.getDepartment("Computer Science");
-        Department mathDepartment = university.getDepartment("Mathematics");
-        Department physicsDepartment = university.getDepartment("Physics");
 
 
-
-        Student alice = university.getStudent("Ali");
-        Student bob = university.getStudent("Ajaz");
-        Student charlie = university.getStudent("Akram");
-
-        university.enrollIn(csDepartment, alice);
-        university.enrollIn(mathDepartment, bob);
-        university.enrollIn(physicsDepartment, charlie);
+        university.enrollIn(university.getDepartment("Computer Science"),university.getStudent("Ali"));
+        university.enrollIn(university.getDepartment("Mathematics"),university.getStudent("Ajaz"));
+        university.enrollIn(university.getDepartment("Physics"), university.getStudent("Akram"));
+        university.enrollIn(university.getDepartment("Physics"), university.getStudent("Akeel"));
 
         university.display();
 
+        System.out.println();
+        university.print_student_name("Physics");
 
     }
 }
